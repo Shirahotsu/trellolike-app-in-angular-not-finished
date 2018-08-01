@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <div class="row">
+    <div *ngFor="let table of data; let i = index; let last = last" [(ngModel)]="someValue" [value]="CDDDD" class="col-lg-4 col-md-4">
+        <mdb-card cascade="true">
+          <div class="view view-cascade gradient-card-header blue-gradient p-4">
+            <div class="row">
+              <h2 *ngIf="editTable != i" class="card-header-title align-content-center ">{{table.name}}<mdb-icon (click)="editTableChange(i)" class="align-content-center h-100" icon="pencil" size="lg"></mdb-icon></h2>
+
+              <div *ngIf="editTable == i" class="md-form col-12">
+                <div class="row">
+                  <form name="createTable">
+                    <input mdbInputDirective type="text" id="form1" class="form-control col-6" value="{{table.name}}">
+                  </form>
+                  <mdb-icon (click)="changeTableContent(i)" class="align-content-center h-100 col-2" icon="check" size="lg"></mdb-icon>
+                  <mdb-icon (click)="editTableChange(NULL)" class="col-2 align-content-center h-100" icon="times" size="lg"></mdb-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mdb-card>
+      </div>
+    <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect (click)="createTable('XDDDD')">Nowa Tablica</button>
+  </div>
+</div>
