@@ -16,7 +16,8 @@ export class GetDataService {
   public url:string;
   public tableData:Tablica;
   constructor(private http: HttpClient) {
-    this.url = "http://127.0.0.1:3000";
+    // this.url = "http://127.0.0.1:3000";
+    this.url = "../../assets/data/data.json";
   }
   getConfig() {
     return this.http.get(this.url);

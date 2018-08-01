@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GetDataService } from '../../services/get-data.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import {Tablica} from '../../models/tablica.model';
+import { Tablica } from '../../models/tablica.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,14 +18,22 @@ const httpOptions = {
   styleUrls: ['./tablice.component.scss']
 })
 export class TabliceComponent implements OnInit {
-  public editTable:number;
-  public data:any;
-  public lastIndex:any;
-  public lastId:number;
-  public url:string;
-  public tableData:Tablica;
+  editTable:number;
+  data:any;
+  lastIndex:any;
+  lastId:number;
+  url:string;
+  tableData:Tablica;
+  rForm: FormGroup;
+  post:any;                     // A property for our submitted form
+  description:string = '';
+  name:string = '';
 
-  constructor(getData: GetDataService, private http: HttpClient) {
+  constructor(getData: GetDataService, private http: HttpClient, private fb: FormBuilder) {
+    this.rForm = fb.group({
+      'name' : [null, Validators.required],
+      'validate' : ''
+    });
     this.data = getData;
     this.url = "../../assets/data/data.json";
 
@@ -74,5 +83,9 @@ export class TabliceComponent implements OnInit {
   editTableChange(e){
     console.log(e);
     this.editTable = e;
+  }
+  addPost(post) {
+    this.name = post.name;
+    console.log(this.name);
   }
 }

@@ -1,1 +1,10 @@
-3
+[
+  {
+    "id":0,
+    "name": "Pierwsza Tablica"
+  },
+  {
+    "id":1,
+    "name": "Druga Tablica"
+  }
+]
