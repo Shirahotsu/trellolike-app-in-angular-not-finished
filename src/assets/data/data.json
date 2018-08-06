@@ -1,10 +1,1 @@
-[
-  {
-    "id":0,
-    "name": "Pierwsza Tablica"
-  },
-  {
-    "id":1,
-    "name": "Druga Tablica"
-  }
-]
+[{"id":0,"name":"Pierwsza Tablica"},{"id":1,"name":"Druga Tablica"},{"id":2,"name":"aaaa222"},{"id":3,"name":"Jakaś tablica -el"},{"id":4,"name":"3123"},{"id":5,"name":"111"},{"id":6,"name":"23"}]

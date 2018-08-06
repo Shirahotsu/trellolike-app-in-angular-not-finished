@@ -25,3 +25,4 @@
     <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect (click)="createTable('XDDDD')">Nowa Tablica</button>
   </div>
 </div>
+<app-add-table *ngIf="g.isCreatingTable"></app-add-table>

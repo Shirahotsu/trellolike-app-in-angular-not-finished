@@ -4,13 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Tablica } from '../../models/tablica.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Globals } from '../../services/globals'
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token'
-  })
-};
 
 @Component({
   selector: 'app-tablice',
@@ -28,14 +23,17 @@ export class TabliceComponent implements OnInit {
   post:any;                     // A property for our submitted form
   description:string = '';
   name:string = '';
-
-  constructor(getData: GetDataService, private http: HttpClient, private fb: FormBuilder) {
+  isCreating: boolean = false;
+  g:Globals;
+  isCreatingTable:boolean;
+  constructor(getData: GetDataService, private http: HttpClient, private fb: FormBuilder, globals: Globals) {
+    this.g = globals;
+    this.isCreatingTable = this.g.isCreatingTable;
     this.rForm = fb.group({
       'name' : [null, Validators.required],
       'validate' : ''
     });
     this.data = getData;
-    this.url = "../../assets/data/data.json";
 
 }
 
@@ -58,28 +56,34 @@ export class TabliceComponent implements OnInit {
         }
       });
   }
-  createTable(e){
-    console.log(e);
-
-    this.tableData={
-      id: this.lastId,
-      name: e
-    };
-  this.http.put(this.url, this.tableData, httpOptions)
-  .subscribe(
-    result => {
-      // Handle result
-      console.log(result)
-    },
-    error => {
-      console.log(error)
-    },
-    () => {
-      // 'onCompleted' callback.
-      // No errors, route to new page here
-    }
-  );
+  createTable(){
+    this.isCreating = true;
+    this.isCreatingTable = true;
+    this.g.isCreatingTable = true;
+    this.g.get();
   }
+  // createTable(e){
+  //   console.log(e);
+
+  //   this.tableData={
+  //     id: this.lastId,
+  //     name: e
+  //   };
+  // this.http.put(this.url, this.tableData, httpOptions)
+  // .subscribe(
+  //   result => {
+  //     // Handle result
+  //     console.log(result)
+  //   },
+  //   error => {
+  //     console.log(error)
+  //   },
+  //   () => {
+  //     // 'onCompleted' callback.
+  //     // No errors, route to new page here
+  //   }
+  // );
+  // }
   editTableChange(e){
     console.log(e);
     this.editTable = e;
