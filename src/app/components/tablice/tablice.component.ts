@@ -68,42 +68,20 @@ export class TabliceComponent implements OnInit {
     this.isCreatingTable = true;
     this.g.isCreatingTable = true;
   }
-  // createTable(e){
-  //   console.log(e);
-
-  //   this.tableData={
-  //     id: this.lastId,
-  //     name: e
-  //   };
-  // this.http.put(this.url, this.tableData, httpOptions)
-  // .subscribe(
-  //   result => {
-  //     // Handle result
-  //     console.log(result)
-  //   },
-  //   error => {
-  //     console.log(error)
-  //   },
-  //   () => {
-  //     // 'onCompleted' callback.
-  //     // No errors, route to new page here
-  //   }
-  // );
-  // }
   deleteTable(e){
     this.clg('usun');
     this.http.post(this.delUrl, {id: e})
     .subscribe(
-      res => {
-        console.log(res);
-      },
-      err =>{
-      this.clg(err);
-      },
       ()=>{
-        this.showConfig();
+        this.clg("HUUUUI")
       }
+
     );
+    setTimeout(()=>{
+      this.showConfig();
+
+    },125)
+
   }
   editTableChange(e){
     this.clg(e);

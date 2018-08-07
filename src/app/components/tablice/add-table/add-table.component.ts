@@ -60,9 +60,10 @@ export class AddTableComponent implements OnInit {
     );
     setTimeout(()=>{
       console.log("KURWAAAA");
-      this.callParent();
+      this.someEvent.next();
+    },1000);
+    this.someEvent.next();
 
-    },1000)
     this.cancle();
   }
   cancle(){
