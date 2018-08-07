@@ -55,6 +55,8 @@ export class TabliceComponent implements OnInit {
   }
   showConfig() {
     this.clg('XDDD');
+    this.clg('reloaded');
+
     this.data.getConfig()
       .subscribe((data: any) => {
         this.dataOtp = data;
@@ -65,7 +67,6 @@ export class TabliceComponent implements OnInit {
     this.isCreating = true;
     this.isCreatingTable = true;
     this.g.isCreatingTable = true;
-    this.g.get();
   }
   // createTable(e){
   //   console.log(e);
