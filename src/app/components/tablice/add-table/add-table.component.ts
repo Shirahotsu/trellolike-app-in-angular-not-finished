@@ -16,7 +16,7 @@ const httpOptions = {
   styleUrls: ['./add-table.component.scss']
 })
 export class AddTableComponent implements OnInit {
-  @Output() someEvent = new EventEmitter<string>();
+  @Output() someEvent: EventEmitter<any> = new EventEmitter<string>();
   url:string = "http://localhost:3000/addTable";
   isShown: boolean = false;
   isCreatingTable:boolean;
@@ -36,6 +36,7 @@ export class AddTableComponent implements OnInit {
   ngOnInit() {
     this.showBtns();
     this.showConfig();
+
   }
   showBtns(){
   setTimeout(()=>{
@@ -45,25 +46,20 @@ export class AddTableComponent implements OnInit {
   onSubmit(){
     let name = this.createTableForm.value.name;
     let index = this.lastIndex + 1;
-    this.http.post(this.url, {name: name, index: index}, httpOptions)
-    .subscribe(
+    this.http.post(this.url, {name: name, index: index}, httpOptions).subscribe(
       x => {
-        this.clg(x)
+        this.clg("xxx")
       },
-      err =>{
-        this.clg(err)
+      // err =>{
+      //   this.clg("err")
 
-      },
+      // },
       ()=>{
-        this.clg('completed')
+        this.callParent();
+        this.clg(this.someEvent.emit("sdasd"));
       }
     );
-    setTimeout(()=>{
-      console.log("KURWAAAA");
-      this.someEvent.next();
-    },1000);
-    this.someEvent.next();
-
+    this.callParent();
     this.cancle();
   }
   cancle(){
@@ -83,8 +79,6 @@ export class AddTableComponent implements OnInit {
       });
   }
   callParent() {
-    console.log("AAAAA");
-
-    this.someEvent.next();
+    this.someEvent.emit();
   }
 }

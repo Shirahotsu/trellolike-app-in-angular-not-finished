@@ -33,6 +33,11 @@ export class TabliceComponent implements OnInit {
   rForm = new FormGroup({
     name: new FormControl(''),
   });
+  addUrl:string = "http://localhost:3000/addTable";
+  isShown: boolean = false;
+  createTableForm = new FormGroup({
+    name: new FormControl(''),
+  });
   constructor(getData: GetDataService, private http: HttpClient, private fb: FormBuilder, globals: Globals) {
     this.g = globals;
     this.delUrl = "http://localhost:3000/deleteTable";
@@ -45,9 +50,9 @@ export class TabliceComponent implements OnInit {
     this.data = getData;
 
 }
-
   ngOnInit() {
     this.showConfig();
+    this.getTabLen();
     console.dir(this.data)
   }
   ngAfterViewInit() {
@@ -60,7 +65,14 @@ export class TabliceComponent implements OnInit {
     this.data.getConfig()
       .subscribe((data: any) => {
         this.dataOtp = data;
-        this.clg('pobrano');
+      });
+  }
+  getTabLen(){
+    this.data.getConfig()
+      .subscribe((data: any) => {
+        this.lastIndex = data.length;
+        console.log(this.lastIndex);
+        return this.lastId;
       });
   }
   createTable(){
@@ -72,15 +84,20 @@ export class TabliceComponent implements OnInit {
     this.clg('usun');
     this.http.post(this.delUrl, {id: e})
     .subscribe(
+      x => {
+        this.clg("xxx")
+      },
+      // err =>{
+      //   this.clg("err")
+
+      // },
       ()=>{
-        this.clg("HUUUUI")
+        setTimeout(()=>{
+          this.showConfig();
+        },100)
       }
 
     );
-    setTimeout(()=>{
-      this.showConfig();
-
-    },125)
 
   }
   editTableChange(e){
@@ -104,9 +121,37 @@ export class TabliceComponent implements OnInit {
       //   this.clg(err);
       // },
       ()=>{
-        this.editTableChange(-99);
-      this.showConfig();
+      this.editTableChange(-99);
+      setTimeout(()=>{
+        this.showConfig();
+      },100)
       }
     );
   }
+  onSubmit(){
+    let name = this.createTableForm.value.name;
+    let index = this.lastIndex + 1;
+    this.http.post(this.addUrl, {name: name, index: index}).subscribe(
+      x => {
+        this.clg("xxx")
+      },
+      // err =>{
+      //   this.clg("err")
+
+      // },
+      ()=>{
+        setTimeout(()=>{
+          this.showConfig();
+        },100)
+      }
+    );
+    this.cancle();
+  }
+
+  cancle(){
+    this.g.isCreatingTable = false;
+    this.g.get();
+  }
+
+
 }

@@ -19,12 +19,18 @@ app.use(function(req, res, next) {
   next();
 });
 
+const con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "tablice",
+});
 app.get('/',function(req,res){
   const con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "tablice"
+    database: "tablice",
   });
   // res.sendfile("./data/data.json");
   con.connect(function(err) {
@@ -32,7 +38,8 @@ app.get('/',function(req,res){
     con.query("SELECT * FROM tablice", function (err, result, fields) {
       if (err) throw err;
       res.send(result);
-    });
+      con.end();
+    })
   });
 });
 // request.get('http://127.0.0.1:3000',function(err,res,body){
@@ -51,7 +58,7 @@ app.post('/addTable',function(req,res){
       host: "localhost",
       user: "root",
       password: "",
-      database: "tablice"
+      database: "tablice",
     });
     // console.log('body:', body); // Print the HTML for the Google homepage.
     var name=req.body.name;
@@ -64,8 +71,10 @@ app.post('/addTable',function(req,res){
       con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("1 record inserted");
+      con.end();
       });
     });
+    res.send('YES');
   });
 });
 
@@ -75,7 +84,7 @@ app.post('/deleteTable',function(req,res){
       host: "localhost",
       user: "root",
       password: "",
-      database: "tablice"
+      database: "tablice",
     });
     // console.log('body:', body); // Print the HTML for the Google homepage.
     var id=req.body.id;
@@ -86,9 +95,11 @@ app.post('/deleteTable',function(req,res){
       con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Number of records deleted: " + result.affectedRows);
+      con.end();
       });
     });
   });
+  res.send('YES');
 });
 app.post('/updateTable',function(req,res){
   request('http://127.0.0.1:3000', function (error, response, body) {
@@ -96,7 +107,7 @@ app.post('/updateTable',function(req,res){
       host: "localhost",
       user: "root",
       password: "",
-      database: "tablice"
+      database: "tablice",
     });
     // console.log('body:', body); // Print the HTML for the Google homepage.
     var id=req.body.id;
@@ -108,9 +119,12 @@ app.post('/updateTable',function(req,res){
       con.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result.affectedRows + " record(s) updated");
+      con.end();
+
       });
     });
   });
+  res.send('YES');
 });
 app.listen(3000,function(){
   console.log("Started on PORT 3000");
