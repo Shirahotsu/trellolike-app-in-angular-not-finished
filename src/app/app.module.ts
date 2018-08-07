@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TabliceComponent } from './components/tablice/tablice.component';
 import { GetDataService } from './services/get-data.service';
-import { AddTableComponent } from './components/add-table/add-table.component';
+import { AddTableComponent } from './components/tablice/add-table/add-table.component';
 import { Globals } from './services/globals';
 
 @NgModule({

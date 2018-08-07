@@ -14,7 +14,8 @@ import { Globals } from '../../services/globals'
 })
 export class TabliceComponent implements OnInit {
   editTable:number;
-  data:any;
+  data:GetDataService;
+  dataOtp: any;
   lastIndex:any;
   lastId:number;
   url:string;
@@ -47,11 +48,10 @@ export class TabliceComponent implements OnInit {
   showConfig() {
     this.data.getConfig()
       .subscribe((data: any) => {
-        this.data = data;
-        console.log(data);
-        this.lastIndex = data.length;
+        this.dataOtp = data;
+        this.lastIndex = this.dataOtp.length;
         // console.log(this.lastIndex);
-        for(let i = 0; i<this.data.length; i++){
+        for(let i = 0; i<this.dataOtp.length; i++){
           this.lastId = data[i].id;
         }
       });
@@ -85,11 +85,12 @@ export class TabliceComponent implements OnInit {
   // );
   // }
   editTableChange(e){
-    console.log(e);
     this.editTable = e;
   }
   addPost(post) {
     this.name = post.name;
-    console.log(this.name);
+  }
+  clg(e){
+    console.log(e);
   }
 }
