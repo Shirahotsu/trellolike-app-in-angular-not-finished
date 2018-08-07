@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row">
-    <div *ngFor="let table of dataOtp  | orderBy: '-tb_id'; let i = index; let last = last" class="col-lg-4 col-md-4">
-        <mdb-card cascade="true">
+    <div *ngFor="let table of dataOtp  | orderBy: '-tb_index'; let i = index; let last = last" class="col-lg-4 col-md-4">
+        <mdb-card cascade="true" class="my-5">
           <div class="view view-cascade gradient-card-header blue-gradient p-4">
             <div class="row">
               <h2 *ngIf="editTable != table.tb_id" class="card-header-title align-content-center ">{{table.tb_name}}
@@ -25,7 +25,11 @@
           </div>
         </mdb-card>
       </div>
-    <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect (click)="createTable('XDDDD')">Nowa Tablica</button>
+    <div class="col-lg-4 col-md-4 my-5 align-content-around">
+      <button mdbBtn type="button" color="primary" class="waves-light addTableBtn centerAll" mdbWavesEffect (click)="createTable('XDDDD')">
+          <i class="mdi mdi-plus mdi-36px"></i>
+      </button>
+    </div>
   </div>
 </div>
 <app-add-table *ngIf="g.isCreatingTable" (someEvent)="showConfig()"></app-add-table>

@@ -55,17 +55,17 @@ app.post('/addTable',function(req,res){
     });
     // console.log('body:', body); // Print the HTML for the Google homepage.
     var name=req.body.name;
+    var index=req.body.index;
     console.log("User name = "+name);
     con.connect(function(err) {
       if (err) throw err;
       console.log("Connected!");
-      var sql = "INSERT INTO tablice (tb_name) VALUES ('"+name+"')";
+      var sql = "INSERT INTO tablice (tb_name, tb_index) VALUES ('"+name+"',"+index+")";
       con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("1 record inserted");
       });
     });
-    res.end("yes");
   });
 });
 
@@ -88,7 +88,6 @@ app.post('/deleteTable',function(req,res){
         console.log("Number of records deleted: " + result.affectedRows);
       });
     });
-    res.end("yes");
   });
 });
 app.post('/updateTable',function(req,res){
@@ -111,7 +110,6 @@ app.post('/updateTable',function(req,res){
         console.log(result.affectedRows + " record(s) updated");
       });
     });
-    res.end("yes");
   });
 });
 app.listen(3000,function(){

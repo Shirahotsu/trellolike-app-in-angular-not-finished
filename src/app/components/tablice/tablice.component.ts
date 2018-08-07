@@ -36,7 +36,7 @@ export class TabliceComponent implements OnInit {
   constructor(getData: GetDataService, private http: HttpClient, private fb: FormBuilder, globals: Globals) {
     this.g = globals;
     this.delUrl = "http://localhost:3000/deleteTable";
-    this.delUrl = "http://localhost:3000/updateTable";
+    this.updateUrl = "http://localhost:3000/updateTable";
     this.isCreatingTable = this.g.isCreatingTable;
     this.rForm = fb.group({
       'name' : [null, Validators.required],
@@ -54,6 +54,7 @@ export class TabliceComponent implements OnInit {
 
   }
   showConfig() {
+    this.clg('XDDD');
     this.data.getConfig()
       .subscribe((data: any) => {
         this.dataOtp = data;
@@ -89,16 +90,17 @@ export class TabliceComponent implements OnInit {
   // );
   // }
   deleteTable(e){
+    this.clg('usun');
     this.http.post(this.delUrl, {id: e})
     .subscribe(
       res => {
         console.log(res);
       },
-      // err =>{
-      //   this.clg(err);
-      // },
+      err =>{
+      this.clg(err);
+      },
       ()=>{
-      this.showConfig();
+        this.showConfig();
       }
     );
   }
@@ -114,7 +116,7 @@ export class TabliceComponent implements OnInit {
   }
   editTableName(id){
     let name = this.rForm.value.name;
-    this.http.post(this.delUrl, {id: id, name: name})
+    this.http.post(this.updateUrl, {id: id, name: name})
     .subscribe(
       res => {
         console.log(res);
