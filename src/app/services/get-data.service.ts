@@ -22,11 +22,11 @@ export class GetDataService {
   getConfig() {
     return this.http.get(this.url);
   }
-  createTable(id, name){
-  this.tableData={
-    id: id,
-    name: name
-  };
-    return this.http.put(this.url, this.tableData, httpOptions)
-  }
+  // createTable(id, name){
+  // this.tableData={
+  //   id: id,
+  //   name: name
+  // };
+  //   return this.http.put(this.url, this.tableData, httpOptions)
+  // }
 }

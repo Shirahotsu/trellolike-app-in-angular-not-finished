@@ -1,22 +1,25 @@
 <div class="container mt-5">
   <div class="row">
-    <div *ngFor="let table of dataOtp; let i = index; let last = last" class="col-lg-4 col-md-4">
+    <div *ngFor="let table of dataOtp  | orderBy: '-tb_id'; let i = index; let last = last" class="col-lg-4 col-md-4">
         <mdb-card cascade="true">
           <div class="view view-cascade gradient-card-header blue-gradient p-4">
             <div class="row">
-              <h2 *ngIf="editTable != i" class="card-header-title align-content-center ">{{table.name}}<mdb-icon (click)="editTableChange(i)" class="align-content-center h-100" icon="pencil" size="lg"></mdb-icon></h2>
+              <h2 *ngIf="editTable != table.tb_id" class="card-header-title align-content-center ">{{table.tb_name}}
+                <mdb-icon (click)="editTableChange(table.tb_id)" class="align-content-center h-100" icon="pencil" size="lg"></mdb-icon>
+                <mdb-icon (click)="deleteTable(table.tb_id)" class="align-content-center h-100" icon="trash" size="lg"></mdb-icon>
+              </h2>
 
-              <div *ngIf="editTable == i" class="md-form col-12">
+              <div *ngIf="editTable == table.tb_id" class="md-form col-12">
                 <div class="row">
-                    <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
-                        <input mdbInputDirective formControlName="name" type="text" id="form1" class="form-control col-6" value="{{table.name}}">
-                          <label for="validate">Minimum of 3 Characters</label>
-                          <input type="checkbox" name="validate" formControlName="validate" value="1"> On
-                          <input type="submit" class="button expanded" value="Submit Form" [disabled]="!rForm.valid">
+                  <form [formGroup]="rForm" (ngSubmit)="editTableName(table.tb_id)" class="col-12">
+                        <input mdbInputDirective formControlName="name" type="text" id="form1" class="form-control col-12" value="{{table.tb_name}}">
+                          <label for="validate">Nazwa tablicy</label>
                     </form>
-                  <mdb-icon (click)="changeTableContent(i)" class="align-content-center h-100 col-2" icon="check" size="lg"></mdb-icon>
-                  <mdb-icon (click)="editTableChange(NULL)" class="col-2 align-content-center h-100" icon="times" size="lg"></mdb-icon>
-                </div>
+                  </div>
+                  <div class="row">
+                    <button (click)="editTableName(table.tb_id)" class="col-6 align-content-center h-100" mdbBtn color="default" sclass="waves-light" mdbWavesEffect>Edytuj</button>
+                    <button (click)="editTableChange(NULL)" class="col-6 align-content-center h-100" mdbBtn color="grey,lithen-3" sclass="waves-light" class="text-dark" mdbWavesEffect>Anuluj</button>
+                  </div>
               </div>
             </div>
           </div>

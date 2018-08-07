@@ -3,6 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgPipesModule} from 'ngx-pipes';
 
 import { AppComponent } from './app.component';
 import { TabliceComponent } from './components/tablice/tablice.component';
@@ -21,7 +22,8 @@ import { Globals } from './services/globals';
     HttpClientModule,
     MDBBootstrapModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgPipesModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [GetDataService, Globals],

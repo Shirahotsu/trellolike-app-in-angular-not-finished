@@ -3,8 +3,9 @@ import { GetDataService } from '../../services/get-data.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Tablica } from '../../models/tablica.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Globals } from '../../services/globals'
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Globals } from '../../services/globals';
+
 
 
 @Component({
@@ -19,16 +20,23 @@ export class TabliceComponent implements OnInit {
   lastIndex:any;
   lastId:number;
   url:string;
+  delUrl: string;
+  updateUrl: string;
   tableData:Tablica;
-  rForm: FormGroup;
+  // rForm: FormGroup;
   post:any;                     // A property for our submitted form
   description:string = '';
   name:string = '';
   isCreating: boolean = false;
   g:Globals;
   isCreatingTable:boolean;
+  rForm = new FormGroup({
+    name: new FormControl(''),
+  });
   constructor(getData: GetDataService, private http: HttpClient, private fb: FormBuilder, globals: Globals) {
     this.g = globals;
+    this.delUrl = "http://localhost:3000/deleteTable";
+    this.delUrl = "http://localhost:3000/updateTable";
     this.isCreatingTable = this.g.isCreatingTable;
     this.rForm = fb.group({
       'name' : [null, Validators.required],
@@ -49,11 +57,7 @@ export class TabliceComponent implements OnInit {
     this.data.getConfig()
       .subscribe((data: any) => {
         this.dataOtp = data;
-        this.lastIndex = this.dataOtp.length;
-        // console.log(this.lastIndex);
-        for(let i = 0; i<this.dataOtp.length; i++){
-          this.lastId = data[i].id;
-        }
+        this.clg('pobrano');
       });
   }
   createTable(){
@@ -84,7 +88,22 @@ export class TabliceComponent implements OnInit {
   //   }
   // );
   // }
+  deleteTable(e){
+    this.http.post(this.delUrl, {id: e})
+    .subscribe(
+      res => {
+        console.log(res);
+      },
+      // err =>{
+      //   this.clg(err);
+      // },
+      ()=>{
+      this.showConfig();
+      }
+    );
+  }
   editTableChange(e){
+    this.clg(e);
     this.editTable = e;
   }
   addPost(post) {
@@ -92,5 +111,21 @@ export class TabliceComponent implements OnInit {
   }
   clg(e){
     console.log(e);
+  }
+  editTableName(id){
+    let name = this.rForm.value.name;
+    this.http.post(this.delUrl, {id: id, name: name})
+    .subscribe(
+      res => {
+        console.log(res);
+      },
+      // err =>{
+      //   this.clg(err);
+      // },
+      ()=>{
+        this.editTableChange(-99);
+      this.showConfig();
+      }
+    );
   }
 }
