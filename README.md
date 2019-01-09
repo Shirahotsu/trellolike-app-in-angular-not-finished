@@ -1,6 +1,7 @@
 # Trello
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
+# That is an old procject, there maybe some console logs, or unsed code, as well as unclean code. i push it to my github to show some my old projects, when i was starting my journey to front-end frameworks
+# This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
 
 ## Development server
 
